@@ -1,5 +1,10 @@
 package com.pj.springdatademo.model;
 
+
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -8,7 +13,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "comment")
-//@Data
+@Data
+@EqualsAndHashCode(exclude={"comments"})
 public class Comment  implements Serializable
 {
     private static final long serialVersionUID = -6699482774799518217L;
@@ -24,7 +30,8 @@ public class Comment  implements Serializable
     private String content;
 
     @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY)
-    private Set<PostComment> postComments=new HashSet<>();
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","post","comment"})
+    private Set<PostComment> comments=new HashSet<>();
 
     @Override
     public String toString()
@@ -36,44 +43,5 @@ public class Comment  implements Serializable
                 '}';
     }
 
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-    public Date getCreatedOn()
-    {
-        return createdOn;
-    }
-
-    public void setCreatedOn(Date createdOn)
-    {
-        this.createdOn = createdOn;
-    }
-
-    public String getContent()
-    {
-        return content;
-    }
-
-    public void setContent(String content)
-    {
-        this.content = content;
-    }
-
-    public Set<PostComment> getPostComments()
-    {
-        return postComments;
-    }
-
-    public void setPostComments(Set<PostComment> postComments)
-    {
-        this.postComments = postComments;
-    }
 }
 

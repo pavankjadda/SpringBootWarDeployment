@@ -1,54 +1,32 @@
 package com.pj.springdatademo.model;
 
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Objects;
 
 @Entity
 @Table(name = "post_comment")
-//@Data
+@Data
+@EqualsAndHashCode(exclude={"post","comment"})
 public class PostComment implements Serializable
 {
     private static final long serialVersionUID = -6699482776799518217L;
 
-    @EmbeddedId
-    private PostCommentId id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("postId")
+    @JoinColumn(name = "post_id")
+    //@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","posts"})
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @MapsId("commentId")
+    @JoinColumn(name = "comment_id")
+    //@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","comments"})
     private Comment comment;
-
-    public PostComment()
-    {
-    }
-
-    public PostComment(PostCommentId id, Post post, Comment comment)
-    {
-        this.id = id;
-        this.post = post;
-        this.comment = comment;
-    }
-
-    @Override
-    public boolean equals(Object o)
-    {
-        if (this == o) return true;
-
-        if (o == null || getClass() != o.getClass())
-            return false;
-        PostComment that = (PostComment) o;
-        return Objects.equals(post, that.post) && Objects.equals(comment, that.comment);
-    }
-
-    @Override
-    public int hashCode()
-    {
-        return Objects.hash(post, comment);
-    }
 
     @Override
     public String toString()

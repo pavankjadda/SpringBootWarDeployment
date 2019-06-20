@@ -1,5 +1,9 @@
 package com.pj.springdatademo.model;
 
+
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
@@ -7,7 +11,8 @@ import java.util.Set;
 
 @Entity(name = "Post")
 @Table(name = "post")
-//@Data
+@Data
+@EqualsAndHashCode(exclude={"posts"})
 public class Post implements Serializable
 {
     private static final long serialVersionUID = -6698422774799518217L;
@@ -22,7 +27,7 @@ public class Post implements Serializable
     private PostDetail detail;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    private Set<PostComment> postComments=new HashSet<>();
+    private Set<PostComment> posts=new HashSet<>();
 
     @Override
     public String toString()
@@ -31,46 +36,5 @@ public class Post implements Serializable
                 "id=" + id +
                 ", title='" + title + '\'' +
                 '}';
-    }
-
-
-    public Long getId()
-    {
-        return id;
-    }
-
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
-
-    public PostDetail getDetail()
-    {
-        return detail;
-    }
-
-    public void setDetail(PostDetail detail)
-    {
-        this.detail = detail;
-    }
-
-    public Set<PostComment> getPostComments()
-    {
-        return postComments;
-    }
-
-    public void setPostComments(Set<PostComment> postComments)
-    {
-        this.postComments = postComments;
     }
 }
