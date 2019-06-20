@@ -2,37 +2,39 @@ package com.pj.springdatademo.model;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
-@Entity(name = "Post")
-@Table(name = "post")
+@Entity
+@Table(name = "comment")
 //@Data
-public class Post implements Serializable
+public class Comment  implements Serializable
 {
-    private static final long serialVersionUID = -6698422774799518217L;
+    private static final long serialVersionUID = -6699482774799518217L;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    private String title;
+    @Column(name = "created_on")
+    private Date createdOn;
 
-    @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private PostDetail detail;
+    @Column(name = "content")
+    private String content;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY)
     private Set<PostComment> postComments=new HashSet<>();
 
     @Override
     public String toString()
     {
-        return "Post{" +
+        return "Comment{" +
                 "id=" + id +
-                ", title='" + title + '\'' +
+                ", createdOn=" + createdOn +
+                ", content='" + content + '\'' +
                 '}';
     }
-
 
     public Long getId()
     {
@@ -44,24 +46,24 @@ public class Post implements Serializable
         this.id = id;
     }
 
-    public String getTitle()
+    public Date getCreatedOn()
     {
-        return title;
+        return createdOn;
     }
 
-    public void setTitle(String title)
+    public void setCreatedOn(Date createdOn)
     {
-        this.title = title;
+        this.createdOn = createdOn;
     }
 
-    public PostDetail getDetail()
+    public String getContent()
     {
-        return detail;
+        return content;
     }
 
-    public void setDetail(PostDetail detail)
+    public void setContent(String content)
     {
-        this.detail = detail;
+        this.content = content;
     }
 
     public Set<PostComment> getPostComments()
@@ -74,3 +76,4 @@ public class Post implements Serializable
         this.postComments = postComments;
     }
 }
+
