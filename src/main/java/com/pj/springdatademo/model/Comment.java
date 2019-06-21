@@ -3,18 +3,17 @@ package com.pj.springdatademo.model;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity
 @Table(name = "comment")
 @Data
-@EqualsAndHashCode(exclude={"comments"})
 public class Comment  implements Serializable
 {
     private static final long serialVersionUID = -6699482774799518217L;
@@ -43,5 +42,20 @@ public class Comment  implements Serializable
                 '}';
     }
 
-}
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Comment comment = (Comment) o;
+        return getId().equals(comment.getId());
+    }
 
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getId());
+    }
+}

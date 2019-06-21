@@ -25,7 +25,7 @@ public class TimePeriod implements Serializable
 
     @Min(value = 1800, message = "End Year should not be less than 1800")
     @Max(value = 9999, message = "End Year should not be greater than 9999")
-    @Column(name = "start_year", columnDefinition = "INT CHECK start_year>=1800")
+    @Column(name = "start_year")
     private int startYear;
 
     @Column(name = "end_month")

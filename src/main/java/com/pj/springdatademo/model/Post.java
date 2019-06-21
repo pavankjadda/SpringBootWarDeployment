@@ -2,17 +2,17 @@ package com.pj.springdatademo.model;
 
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
+import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 @Entity(name = "Post")
 @Table(name = "post")
 @Data
-@EqualsAndHashCode(exclude={"posts"})
 public class Post implements Serializable
 {
     private static final long serialVersionUID = -6698422774799518217L;
@@ -21,6 +21,8 @@ public class Post implements Serializable
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @NaturalId
+    @Column(name = "title")
     private String title;
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
@@ -36,5 +38,22 @@ public class Post implements Serializable
                 "id=" + id +
                 ", title='" + title + '\'' +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Post post = (Post) o;
+        return getId().equals(post.getId());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getId());
     }
 }

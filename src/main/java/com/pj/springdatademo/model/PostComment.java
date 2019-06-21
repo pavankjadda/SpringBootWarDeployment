@@ -1,15 +1,14 @@
 package com.pj.springdatademo.model;
 
 import lombok.Data;
-import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 @Table(name = "post_comment")
 @Data
-@EqualsAndHashCode(exclude={"post","comment"})
 public class PostComment implements Serializable
 {
     private static final long serialVersionUID = -6699482776799518217L;
@@ -34,5 +33,23 @@ public class PostComment implements Serializable
         return "PostComment{" +
                 "id=" + id +
                 '}';
+    }
+
+    @Override
+    public boolean equals(Object o)
+    {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        PostComment that = (PostComment) o;
+        return getPost().equals(that.getPost()) &&
+                getComment().equals(that.getComment());
+    }
+
+    @Override
+    public int hashCode()
+    {
+        return Objects.hash(getPost(), getComment());
     }
 }
