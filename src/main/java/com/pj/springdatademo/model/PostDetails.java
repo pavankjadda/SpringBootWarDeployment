@@ -29,4 +29,6 @@ public class PostDetails  implements Serializable
     @JsonIgnore
     private Post post;
 
+    @OneToOne(mappedBy = "postDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
+    private PostComment postComment;
 }
