@@ -1,5 +1,6 @@
 package com.pj.springdatademo.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,12 +20,12 @@ public class PostComment implements Serializable
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "post_id")
-    //@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","posts"})
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","posts"})
     private Post post;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "comment_id")
-    //@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","comments"})
+    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","comments"})
     private Comment comment;
 
     @Override

@@ -1,7 +1,6 @@
 package com.pj.springdatademo.model;
 
 
-import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -12,7 +11,7 @@ import java.util.Set;
 
 @Entity(name = "Post")
 @Table(name = "post")
-@Data
+//@Data
 public class Post implements Serializable
 {
     private static final long serialVersionUID = -6698422774799518217L;
@@ -28,8 +27,14 @@ public class Post implements Serializable
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private PostDetail detail;
 
-    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    private Set<PostComment> posts=new HashSet<>();
+   /* @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    private Set<PostComment> posts=new HashSet<>();*/
+
+   @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
+   @JoinTable(name = "post_tag",
+           joinColumns = @JoinColumn(name = "post"),
+           inverseJoinColumns = @JoinColumn(name = "tag"))
+   private Set<Tag> tags=new HashSet<>();
 
     @Override
     public String toString()
@@ -37,6 +42,8 @@ public class Post implements Serializable
         return "Post{" +
                 "id=" + id +
                 ", title='" + title + '\'' +
+                ", detail=" + detail +
+                ", tags=" + tags +
                 '}';
     }
 
@@ -48,12 +55,43 @@ public class Post implements Serializable
         if (o == null || getClass() != o.getClass())
             return false;
         Post post = (Post) o;
-        return getId().equals(post.getId());
+        return id.equals(post.id) &&
+                title.equals(post.title);
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(getId());
+        return Objects.hash(id, title);
+    }
+
+    public Long getId()
+    {
+        return id;
+    }
+
+    public void setId(Long id)
+    {
+        this.id = id;
+    }
+
+    public String getTitle()
+    {
+        return title;
+    }
+
+    public void setTitle(String title)
+    {
+        this.title = title;
+    }
+
+    public PostDetail getDetail()
+    {
+        return detail;
+    }
+
+    public void setDetail(PostDetail detail)
+    {
+        this.detail = detail;
     }
 }

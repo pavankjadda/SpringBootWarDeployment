@@ -1,7 +1,6 @@
 package com.pj.springdatademo.model;
 
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -29,7 +28,7 @@ public class Comment  implements Serializable
     private String content;
 
     @OneToMany(mappedBy = "comment", fetch = FetchType.LAZY)
-    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","post","comment"})
+    //@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","post","comment"})
     private Set<PostComment> comments=new HashSet<>();
 
     @Override
