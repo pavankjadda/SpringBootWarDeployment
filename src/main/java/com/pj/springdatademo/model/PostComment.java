@@ -1,6 +1,6 @@
 package com.pj.springdatademo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -14,26 +14,28 @@ public class PostComment implements Serializable
 {
     private static final long serialVersionUID = -6699482776799518217L;
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    @EmbeddedId
+    private PostCommentId id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "post_id")
-    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","posts"})
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("postId")
+    @JsonIgnore
     private Post post;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "comment_id")
-    @JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","comments"})
+    @ManyToOne(fetch = FetchType.EAGER)
+    @MapsId("postId")
+    @JsonIgnore
     private Comment comment;
 
-    @Override
-    public String toString()
+    public PostComment()
     {
-        return "PostComment{" +
-                "id=" + id +
-                '}';
+    }
+
+    public PostComment(Post post, Comment comment)
+    {
+        this.post = post;
+        this.comment = comment;
+        this.id=new PostCommentId(post.getId(), comment.getId());
     }
 
     @Override
@@ -52,5 +54,35 @@ public class PostComment implements Serializable
     public int hashCode()
     {
         return Objects.hash(getPost(), getComment());
+    }
+
+    public PostCommentId getId()
+    {
+        return id;
+    }
+
+    public void setId(PostCommentId id)
+    {
+        this.id = id;
+    }
+
+    public Post getPost()
+    {
+        return post;
+    }
+
+    public void setPost(Post post)
+    {
+        this.post = post;
+    }
+
+    public Comment getComment()
+    {
+        return comment;
+    }
+
+    public void setComment(Comment comment)
+    {
+        this.comment = comment;
     }
 }

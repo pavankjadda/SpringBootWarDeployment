@@ -31,13 +31,11 @@ public class PostCommentId implements Serializable
     {
         if (this == o)
             return true;
-
         if (o == null || getClass() != o.getClass())
             return false;
-
         PostCommentId that = (PostCommentId) o;
-        return Objects.equals(postId, that.postId) &&
-                Objects.equals(commentId, that.commentId);
+        return postId.equals(that.postId) &&
+                commentId.equals(that.commentId);
     }
 
     @Override

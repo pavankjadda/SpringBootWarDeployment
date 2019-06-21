@@ -6,10 +6,11 @@ import org.hibernate.annotations.NaturalId;
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.Objects;
 import java.util.Set;
 
-@Entity(name = "Post")
+@Entity
 @Table(name = "post")
 //@Data
 public class Post implements Serializable
@@ -27,25 +28,35 @@ public class Post implements Serializable
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
     private PostDetail detail;
 
-   /* @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
-    private Set<PostComment> posts=new HashSet<>();*/
+    @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, orphanRemoval = true)
+    private Set<PostComment> comments=new HashSet<>();
 
-   @ManyToMany(cascade = {CascadeType.MERGE,CascadeType.PERSIST})
-   @JoinTable(name = "post_tag",
-           joinColumns = @JoinColumn(name = "post"),
-           inverseJoinColumns = @JoinColumn(name = "tag"))
-   private Set<Tag> tags=new HashSet<>();
 
-    @Override
-    public String toString()
+    public void addComment(Comment comment)
     {
-        return "Post{" +
-                "id=" + id +
-                ", title='" + title + '\'' +
-                ", detail=" + detail +
-                ", tags=" + tags +
-                '}';
+        PostComment postComment = new PostComment(this,comment);
+        comments.add(postComment);
+        comment.getPosts().add(postComment);
     }
+
+    public void removeComment(Comment comment)
+    {
+        for (Iterator<PostComment> iterator = comments.iterator();
+                iterator.hasNext(); )
+        {
+            PostComment postComment = iterator.next();
+
+            if (postComment.getPost().equals(this) &&
+                    postComment.getComment().equals(comment))
+            {
+                iterator.remove();
+                postComment.getComment().getPosts().remove(postComment);
+                postComment.setPost(null);
+                postComment.setComment(null);
+            }
+        }
+    }
+
 
     @Override
     public boolean equals(Object o)
@@ -55,14 +66,14 @@ public class Post implements Serializable
         if (o == null || getClass() != o.getClass())
             return false;
         Post post = (Post) o;
-        return id.equals(post.id) &&
-                title.equals(post.title);
+        return getId().equals(post.getId()) &&
+                Objects.equals(getTitle(), post.getTitle());
     }
 
     @Override
     public int hashCode()
     {
-        return Objects.hash(id, title);
+        return Objects.hash(getId(), getTitle());
     }
 
     public Long getId()
@@ -93,5 +104,15 @@ public class Post implements Serializable
     public void setDetail(PostDetail detail)
     {
         this.detail = detail;
+    }
+
+    public Set<PostComment> getComments()
+    {
+        return comments;
+    }
+
+    public void setComments(Set<PostComment> comments)
+    {
+        this.comments = comments;
     }
 }
