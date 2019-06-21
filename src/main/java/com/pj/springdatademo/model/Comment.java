@@ -1,6 +1,7 @@
 package com.pj.springdatademo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -28,6 +29,7 @@ public class Comment  implements Serializable
     private String content;
 
     @OneToMany(mappedBy = "comment", fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnore
     private Set<PostComment> posts=new HashSet<>();
 
 

@@ -1,6 +1,8 @@
 package com.pj.springdatademo.model;
 
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import lombok.Data;
 import org.hibernate.annotations.NaturalId;
 
 import javax.persistence.*;
@@ -12,7 +14,7 @@ import java.util.Set;
 
 @Entity
 @Table(name = "post")
-//@Data
+@Data
 public class Post implements Serializable
 {
     private static final long serialVersionUID = -6698422774799518217L;
@@ -29,6 +31,7 @@ public class Post implements Serializable
     private PostDetail detail;
 
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, orphanRemoval = true)
+    @JsonIgnoreProperties(value = {"id","post"})
     private Set<PostComment> comments=new HashSet<>();
 
 
@@ -76,43 +79,5 @@ public class Post implements Serializable
         return Objects.hash(getId(), getTitle());
     }
 
-    public Long getId()
-    {
-        return id;
-    }
 
-    public void setId(Long id)
-    {
-        this.id = id;
-    }
-
-    public String getTitle()
-    {
-        return title;
-    }
-
-    public void setTitle(String title)
-    {
-        this.title = title;
-    }
-
-    public PostDetail getDetail()
-    {
-        return detail;
-    }
-
-    public void setDetail(PostDetail detail)
-    {
-        this.detail = detail;
-    }
-
-    public Set<PostComment> getComments()
-    {
-        return comments;
-    }
-
-    public void setComments(Set<PostComment> comments)
-    {
-        this.comments = comments;
-    }
 }

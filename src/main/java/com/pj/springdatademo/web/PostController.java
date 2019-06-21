@@ -4,6 +4,7 @@ import com.pj.springdatademo.model.Post;
 import com.pj.springdatademo.model.PostDetail;
 import com.pj.springdatademo.repo.PostDetailRepository;
 import com.pj.springdatademo.repo.PostRepository;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.data.domain.Sort;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -17,6 +18,7 @@ import java.util.Random;
 
 @RestController
 @RequestMapping("/api/v1/post")
+@CacheEvict(value = "postCache")
 public class PostController
 {
     private final PostRepository postRepository;
@@ -36,6 +38,7 @@ public class PostController
     }
 
     @GetMapping(path = "/create")
+    @CacheEvict(value = "postCache")
     public List<Post> createAndGetPosts()
     {
 
@@ -48,7 +51,10 @@ public class PostController
         postDetail.setCreatedBy("Admin");
         postDetail.setCreatedOn(Date.from(Instant.now()));
         postDetail.setPost(post);
-        postDetailRepository.saveAndFlush(postDetail);
+        postDetail=postDetailRepository.saveAndFlush(postDetail);
+
+        post.setDetail(postDetail);
+        postRepository.saveAndFlush(post);
 
         return postRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }

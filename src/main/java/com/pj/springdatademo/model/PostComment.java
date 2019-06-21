@@ -1,6 +1,5 @@
 package com.pj.springdatademo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
 
 import javax.persistence.*;
@@ -19,12 +18,10 @@ public class PostComment implements Serializable
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("postId")
-    @JsonIgnore
     private Post post;
 
     @ManyToOne(fetch = FetchType.EAGER)
     @MapsId("postId")
-    @JsonIgnore
     private Comment comment;
 
     public PostComment()
@@ -56,33 +53,4 @@ public class PostComment implements Serializable
         return Objects.hash(getPost(), getComment());
     }
 
-    public PostCommentId getId()
-    {
-        return id;
-    }
-
-    public void setId(PostCommentId id)
-    {
-        this.id = id;
-    }
-
-    public Post getPost()
-    {
-        return post;
-    }
-
-    public void setPost(Post post)
-    {
-        this.post = post;
-    }
-
-    public Comment getComment()
-    {
-        return comment;
-    }
-
-    public void setComment(Comment comment)
-    {
-        this.comment = comment;
-    }
 }
