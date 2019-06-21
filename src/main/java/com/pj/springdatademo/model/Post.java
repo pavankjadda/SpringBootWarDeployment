@@ -1,13 +1,18 @@
 package com.pj.springdatademo.model;
 
+
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
+import java.util.HashSet;
+import java.util.Set;
 
 @Entity(name = "Post")
 @Table(name = "post")
 @Data
+@EqualsAndHashCode(exclude={"posts"})
 public class Post implements Serializable
 {
     private static final long serialVersionUID = -6698422774799518217L;
@@ -19,22 +24,17 @@ public class Post implements Serializable
     private String title;
 
     @OneToOne(mappedBy = "post", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private PostDetails details;
+    private PostDetail detail;
 
-    //Getters and setters omitted for brevity
-    public void setDetails(PostDetails details)
+    @OneToMany(mappedBy = "post", fetch = FetchType.LAZY)
+    private Set<PostComment> posts=new HashSet<>();
+
+    @Override
+    public String toString()
     {
-        if (details == null)
-        {
-            if (this.details != null)
-            {
-                this.details.setPost(null);
-            }
-        }
-        else
-        {
-            details.setPost(this);
-        }
-        this.details = details;
+        return "Post{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                '}';
     }
 }

@@ -1,7 +1,7 @@
 package com.pj.springdatademo.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import lombok.Data;
+import lombok.EqualsAndHashCode;
 
 import javax.persistence.*;
 import java.io.Serializable;
@@ -9,19 +9,30 @@ import java.io.Serializable;
 @Entity
 @Table(name = "post_comment")
 @Data
+@EqualsAndHashCode(exclude={"post","comment"})
 public class PostComment implements Serializable
 {
-    private static final long serialVersionUID = -6359823086901173857L;
+    private static final long serialVersionUID = -6699482776799518217L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "id")
-    @JsonIgnore
-    private PostDetails postDetails;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "post_id")
+    //@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","posts"})
+    private Post post;
 
-    @Column(name = "comment")
-    private String comment;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "comment_id")
+    //@JsonIgnoreProperties(value = {"hibernateLazyInitializer", "handler","comments"})
+    private Comment comment;
+
+    @Override
+    public String toString()
+    {
+        return "PostComment{" +
+                "id=" + id +
+                '}';
+    }
 }

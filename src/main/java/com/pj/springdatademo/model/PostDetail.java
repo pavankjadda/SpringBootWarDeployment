@@ -7,14 +7,15 @@ import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 
-@Entity(name = "PostDetails")
-@Table(name = "post_details")
+@Entity
+@Table(name = "post_detail")
 @Data
-public class PostDetails  implements Serializable
+public class PostDetail implements Serializable
 {
     private static final long serialVersionUID = -6699482774799518217L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "created_on")
@@ -24,11 +25,17 @@ public class PostDetails  implements Serializable
     private String createdBy;
 
     @OneToOne(fetch = FetchType.LAZY)
-    @MapsId
-    @JoinColumn(name = "id")
+    @JoinColumn(name = "post_id")
     @JsonIgnore
     private Post post;
 
-    @OneToOne(mappedBy = "postDetails", cascade = CascadeType.ALL, fetch = FetchType.LAZY, optional = false)
-    private PostComment postComment;
+    @Override
+    public String toString()
+    {
+        return "PostDetail{" +
+                "id=" + id +
+                ", createdOn=" + createdOn +
+                ", createdBy='" + createdBy + '\'' +
+                '}';
+    }
 }

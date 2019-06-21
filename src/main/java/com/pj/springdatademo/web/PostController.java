@@ -1,7 +1,7 @@
 package com.pj.springdatademo.web;
 
 import com.pj.springdatademo.model.Post;
-import com.pj.springdatademo.model.PostDetails;
+import com.pj.springdatademo.model.PostDetail;
 import com.pj.springdatademo.repo.PostDetailRepository;
 import com.pj.springdatademo.repo.PostRepository;
 import org.springframework.data.domain.Sort;
@@ -44,11 +44,11 @@ public class PostController
         post.setTitle("First Post");
         post=postRepository.saveAndFlush(post);
 
-        PostDetails postDetails=new PostDetails();
-        postDetails.setCreatedBy("Admin");
-        postDetails.setCreatedOn(Date.from(Instant.now()));
-        postDetails.setPost(post);
-        postDetailRepository.saveAndFlush(postDetails);
+        PostDetail postDetail =new PostDetail();
+        postDetail.setCreatedBy("Admin");
+        postDetail.setCreatedOn(Date.from(Instant.now()));
+        postDetail.setPost(post);
+        postDetailRepository.saveAndFlush(postDetail);
 
         return postRepository.findAll(Sort.by(Sort.Direction.DESC,"id"));
     }
