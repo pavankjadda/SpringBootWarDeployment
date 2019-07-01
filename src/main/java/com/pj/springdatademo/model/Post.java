@@ -33,8 +33,7 @@ public class Post implements Serializable
     @OneToMany(mappedBy = "post", fetch = FetchType.EAGER, orphanRemoval = true)
     @JsonIgnoreProperties(value = {"id","post"})
     private Set<PostComment> comments=new HashSet<>();
-
-
+    
     public void addComment(Comment comment)
     {
         PostComment postComment = new PostComment(this,comment);
