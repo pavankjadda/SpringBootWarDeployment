@@ -18,7 +18,6 @@ spring:
       max-request-size: -1
 
 
-
   # Jpa Properties
   datasource:
     url: jdbc:mysql://localhost:3306/springdatademo?serverTimezone=UTC
