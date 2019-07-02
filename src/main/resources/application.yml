@@ -40,7 +40,6 @@ spring:
     restart:
       enabled: true
 
-
 zuul:
   routes:
     category:
