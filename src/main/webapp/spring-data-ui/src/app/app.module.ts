@@ -1,12 +1,16 @@
 import {HttpClientModule} from "@angular/common/http";
-import {NgModule} from "@angular/core";
+import {APP_INITIALIZER, NgModule} from "@angular/core";
 import {BrowserModule} from "@angular/platform-browser";
 
 import {AppRoutingModule} from "./app-routing.module";
 import {AppComponent} from "./app.component";
 import {CategoryListComponent} from "./category-list/category-list.component";
 import {EmployeeListComponent} from "./employee-list/employee-list.component";
+import {KeycloakService} from "./keycloak/keycloak.service";
 
+export function kcFactory(keycloakService: KeycloakService) {
+  return () => keycloakService.init();
+}
 @NgModule({
   declarations: [
     AppComponent,
@@ -18,7 +22,13 @@ import {EmployeeListComponent} from "./employee-list/employee-list.component";
     AppRoutingModule,
     HttpClientModule
   ],
-  providers: [],
+  providers: [KeycloakService,
+    {
+      provide: APP_INITIALIZER,
+      useFactory: kcFactory,
+      deps: [KeycloakService],
+      multi: true
+    }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
