@@ -4,7 +4,6 @@ env:
         AWS_REGION: "us-east-1"
         AWS_DEFAULT_REGION: "us-east-1"
         APP_IMAGE_REPO_NAME: "springdatademo"
-        WEBSERVER_IMAGE_REPO_NAME: "nginx"
         IMAGE_TAG: "latest"
         AWS_ACCOUNT_ID: "512475155605"
     parameter-store:
