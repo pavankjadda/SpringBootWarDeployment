@@ -6,10 +6,11 @@ import org.springframework.data.jpa.repository.JpaRepository;
 public interface CategoryRepository extends JpaRepository<Category,Long>,CategoryRepositoryCustom
 {
 
-    /*@Procedure(name="Category.getAllCategoriesThroughStoredProcedure")
+    /*@Query(name = "CALL get_all_categories;", nativeQuery = true)
     List<Category> getAllCategoriesThroughStoredProcedure();*/
 
-    /*@Procedure(procedureName="get_all_categories")
-    List<Category> getAllCategoriesThroughStoredProcedure();
+    /*
+        @Procedure(procedureName="get_all_categories")
+        List<Category> getAllCategoriesThroughStoredProcedure();
     */
 }
