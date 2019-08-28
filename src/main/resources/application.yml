@@ -5,6 +5,10 @@ server:
   servlet:
     context-path: /
 
+
+  error:
+      whitelabel:
+          enabled: false
 #Spring Properties
 
 spring:

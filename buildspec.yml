@@ -1,0 +1,40 @@
+version: 0.2
+env:
+    variables:
+        AWS_REGION: "us-east-1"
+        AWS_DEFAULT_REGION: "us-east-1"
+        APP_IMAGE_REPO_NAME: "springdatademo"
+        WEBSERVER_IMAGE_REPO_NAME: "nginx"
+        IMAGE_TAG: "latest"
+        AWS_ACCOUNT_ID: "512475155605"
+    parameter-store:
+        AWS_OUTPUT: OUTPUT_FORMAT
+        AWS_ACCESS_KEY_ID: ACCESS_KEY_ID
+        AWS_SECRET_ACCESS_KEY: SECRET_ACCESS_KEY
+    #git-credential-helper: yes
+
+phases:
+    install:
+        runtime-versions:
+            docker: 18
+    pre_build:
+        commands:
+            - echo Aws output:$AWS_OUTPUT
+            #- echo AWS ACCESS Key:$AWS_ACCESS_KEY_ID
+            - echo Logging in to Amazon ECR...
+            - $(aws ecr get-login --no-include-email  --region $AWS_REGION)
+    build:
+        commands:
+            - echo Build started on `date`
+            - echo Building the App Docker image...
+            - docker build -t $APP_IMAGE_REPO_NAME:$IMAGE_TAG -f Dockerfile .
+            - docker tag $APP_IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$APP_IMAGE_REPO_NAME:$IMAGE_TAGG
+    post_build:
+        commands:
+            - echo Build completed on `date`
+            - echo Pushing the App Docker image...
+            - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$APP_IMAGE_REPO_NAME:$IMAGE_TAG
+artifacts:
+    files:
+        - appspec.yaml
+        - taskdef.json
