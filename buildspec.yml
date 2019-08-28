@@ -18,8 +18,6 @@ phases:
             docker: 18
     pre_build:
         commands:
-            #- echo Aws output:$AWS_OUTPUT
-            #- echo AWS ACCESS Key:$AWS_ACCESS_KEY_ID
             - echo Logging in to Amazon ECR...
             - $(aws ecr get-login --no-include-email  --region $AWS_REGION)
     build:
