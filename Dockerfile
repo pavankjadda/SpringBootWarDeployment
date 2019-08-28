@@ -4,6 +4,6 @@ WORKDIR /tmp
 RUN apt-get update -y && apt-get install maven -y
 RUN mvn clean package -DskipTests
 RUN pwd && ls -lah
-COPY target/springdatademo-*.jar /tmp/app.jar
-CMD ["java","-jar", "/tmp/app.jar"]
+COPY target/springdatademo-*.jar app.jar
+CMD ["java","-jar", "app.jar"]
 EXPOSE 8081
