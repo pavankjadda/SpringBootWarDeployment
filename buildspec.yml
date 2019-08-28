@@ -7,10 +7,10 @@ env:
         WEBSERVER_IMAGE_REPO_NAME: "nginx"
         IMAGE_TAG: "latest"
         AWS_ACCOUNT_ID: "512475155605"
-    parameter-store:
-        AWS_OUTPUT: OUTPUT_FORMAT
-        AWS_ACCESS_KEY_ID: ACCESS_KEY_ID
-        AWS_SECRET_ACCESS_KEY: SECRET_ACCESS_KEY
+#    parameter-store:
+#        AWS_OUTPUT: OUTPUT_FORMAT
+#        AWS_ACCESS_KEY_ID: ACCESS_KEY_ID
+#        AWS_SECRET_ACCESS_KEY: SECRET_ACCESS_KEY
     #git-credential-helper: yes
 
 phases:
@@ -19,7 +19,7 @@ phases:
             docker: 18
     pre_build:
         commands:
-            - echo Aws output:$AWS_OUTPUT
+            #- echo Aws output:$AWS_OUTPUT
             #- echo AWS ACCESS Key:$AWS_ACCESS_KEY_ID
             - echo Logging in to Amazon ECR...
             - $(aws ecr get-login --no-include-email  --region $AWS_REGION)
