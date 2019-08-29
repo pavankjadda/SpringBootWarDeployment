@@ -28,7 +28,7 @@
       "memoryReservation": 1500,
       "volumesFrom": [],
       "stopTimeout": null,
-      "image": "IMAGE1_NAME",
+      "image": "<IMAGE1_NAME>",
       "startTimeout": null,
       "dependsOn": null,
       "disableNetworking": null,
