@@ -1,9 +1,0 @@
-version: 0.0
-Resources:
-    - TargetService:
-          Type: AWS::ECS::Service
-          Properties:
-              TaskDefinition: arn:aws:ecs:us-east-1:512475155605:task-definition/springdatademo:11
-              LoadBalancerInfo:
-                  ContainerName: "springdatademo"
-                  ContainerPort: 8081
