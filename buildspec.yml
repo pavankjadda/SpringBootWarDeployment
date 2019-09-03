@@ -20,6 +20,7 @@ phases:
         commands:
             - echo Logging in to Amazon ECR...
             - $(aws ecr get-login --no-include-email  --region $AWS_REGION)
+            - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$APP_IMAGE_REPO_NAME
     build:
         commands:
             - echo Build started on `date`
@@ -31,6 +32,6 @@ phases:
             - echo Build completed on `date`
             - echo Pushing the App Docker image...
             - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$APP_IMAGE_REPO_NAME:$IMAGE_TAG
-            - printf '[{"name":"hello-world","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+            - printf '[{"name":"springdatademo","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
