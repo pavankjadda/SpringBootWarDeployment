@@ -5,12 +5,8 @@ env:
         IMAGE_TAG: "latest"
         
     parameter-store:
-        AWS_OUTPUT: OUTPUT_FORMAT
-        AWS_ACCESS_KEY_ID: ACCESS_KEY_ID
-        AWS_SECRET_ACCESS_KEY: SECRET_ACCESS_KEY
         AWS_ACCOUNT_ID: ACCOUNT_ID
         AWS_REGION: REGION
-        AWS_DEFAULT_REGION: REGION
 
 phases:
     install:
@@ -26,12 +22,12 @@ phases:
             - echo Build started on `date`
             - echo Building the App Docker image...
             - docker build -t $APP_IMAGE_REPO_NAME:$IMAGE_TAG -f Dockerfile .
-            - docker tag $APP_IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$APP_IMAGE_REPO_NAME:$IMAGE_TAG
+            - docker tag $APP_IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$APP_IMAGE_REPO_NAME:$IMAGE_TAG
     post_build:
         commands:
             - echo Build completed on `date`
             - echo Pushing the App Docker image...
-            - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$APP_IMAGE_REPO_NAME:$IMAGE_TAG
+            - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/$APP_IMAGE_REPO_NAME:$IMAGE_TAG
             - printf '[{"name":"springdatademo","imageUri":"%s"}]' $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
 artifacts:
     files: imagedefinitions.json
