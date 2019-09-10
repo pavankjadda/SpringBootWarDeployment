@@ -1,9 +1,9 @@
 FROM openjdk:11
-COPY . /tmp
-WORKDIR /tmp
+COPY . /app
+WORKDIR /app
 RUN apt-get update -y && apt-get install maven -y
 RUN mvn clean package -DskipTests
-RUN pwd
-RUN cp /tmp/target/springdatademo-*.jar /tmp/app.jar
-CMD ["java","-jar", "/tmp/app.jar"]
-EXPOSE 8081
+RUN cp /app/target/springdatademo-*.jar /app/springdatademo.jar
+CMD ["java","-jar", "/app/springdatademo.jar"]
+EXPOSE 8090
+
