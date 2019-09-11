@@ -1,0 +1,45 @@
+
+## Server Properties
+server:
+  port: 8090
+  servlet:
+    context-path: /
+
+
+  error:
+      whitelabel:
+          enabled: false
+#Spring Properties
+
+spring:
+  application:
+    name: SpringSecurity-Data-Application
+  servlet:
+    multipart:
+      enabled: false
+      #file-size-threshold: 2KB
+      max-file-size: -1
+      max-request-size: -1
+
+
+  # Jpa Properties
+  datasource:
+    url: jdbc:mysql://localhost:3306/springdatademo?serverTimezone=UTC
+    username: root
+    password: bcmc1234
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+
+  jpa:
+    generate-ddl: true
+    properties:
+      hibernate:
+        ddl-auto: update
+        show_sql: true
+        dialet: org.hibernate.dialect.H2Dialect
+
+  # Spring Session properties
+  devtools:
+    restart:
+      enabled: false
+
