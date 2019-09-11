@@ -41,5 +41,7 @@ spring:
   # Spring Session properties
   devtools:
     restart:
-      enabled: false
+      enabled: true
+    livereload:
+      enabled: true
 

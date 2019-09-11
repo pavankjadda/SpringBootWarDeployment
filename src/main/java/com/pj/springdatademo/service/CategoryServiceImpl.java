@@ -5,6 +5,7 @@ import com.pj.springdatademo.repo.CategoryRepository;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CategoryServiceImpl implements CategoryService
@@ -36,5 +37,11 @@ public class CategoryServiceImpl implements CategoryService
     public List<Category> getAllCategories()
     {
         return categoryRepository.getAllCategoriesThroughStoredProcedure();
+    }
+
+    @Override
+    public Optional<Category> findCategoryById(Long id)
+    {
+        return categoryRepository.findById(id);
     }
 }
