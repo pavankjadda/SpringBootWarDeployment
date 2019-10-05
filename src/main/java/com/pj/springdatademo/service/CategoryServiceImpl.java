@@ -2,10 +2,13 @@ package com.pj.springdatademo.service;
 
 import com.pj.springdatademo.model.Category;
 import com.pj.springdatademo.repo.CategoryRepository;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
+import java.util.Random;
 
 @Service
 public class CategoryServiceImpl implements CategoryService
@@ -36,12 +39,23 @@ public class CategoryServiceImpl implements CategoryService
     @Override
     public List<Category> getAllCategories()
     {
-        return categoryRepository.getAllCategoriesThroughStoredProcedure();
+        return categoryRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
+        //return categoryRepository.getAllCategoriesThroughStoredProcedure();
     }
 
     @Override
     public Optional<Category> findCategoryById(Long id)
     {
         return categoryRepository.findById(id);
+    }
+
+    @Override
+    public Category createCategory()
+    {
+        Category category = new Category();
+        category.setId(new Random().nextLong());
+        category.setCreatedOn(LocalDateTime.now());
+        category.setName("Books");
+        return categoryRepository.saveAndFlush(category);
     }
 }

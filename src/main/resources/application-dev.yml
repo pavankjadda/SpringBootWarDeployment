@@ -37,6 +37,7 @@ spring:
         ddl-auto: update
         show_sql: true
         dialet: org.hibernate.dialect.H2Dialect
+    open-in-view: false
 
   # Spring Session properties
   devtools:

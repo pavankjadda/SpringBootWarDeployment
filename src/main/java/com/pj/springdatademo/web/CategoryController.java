@@ -40,4 +40,10 @@ public class CategoryController
     {
         return categoryService.findCategoryById(id);
     }
+
+    @GetMapping(path = "/create")
+    public Category createCategory()
+    {
+        return categoryService.createCategory();
+    }
 }

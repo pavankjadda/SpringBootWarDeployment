@@ -1,4 +1,3 @@
-#FROM openjdk:11
 FROM openjdk:11.0.4-jdk-slim-buster
 COPY . /app
 WORKDIR /app
