@@ -1,5 +1,5 @@
-# SpringDataDemo
-Spring Data Demo project created to showcase bug in Spring Data JPA 
+# Spring Boot War Deployment 
+Spring Boot War Deployment project created to showcase WAR file deployment in Tomcat along with environment variables
 
 ### How to run?
 1. Create `springdatademo` database in MySql database

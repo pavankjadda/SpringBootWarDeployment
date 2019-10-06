@@ -8,11 +8,11 @@ import org.springframework.context.annotation.Bean;
 
 
 @SpringBootApplication
-public class SpringDataDemoApplication extends SpringBootServletInitializer
+public class SpringBootWarDeploymentApplication extends SpringBootServletInitializer
 {
     public static void main(String[] args)
     {
-        SpringApplication.run(SpringDataDemoApplication.class, args);
+        SpringApplication.run(SpringBootWarDeploymentApplication.class, args);
     }
 
     @Bean
