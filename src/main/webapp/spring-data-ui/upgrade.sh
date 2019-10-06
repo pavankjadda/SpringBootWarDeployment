@@ -7,6 +7,7 @@ git push origin war-deployment
 ng update --all --force
 npm install zone.js@0.9.1 typescript@3.5.3 --save
 npm install
+npm audit fix
 
 
 ## After upgrade
