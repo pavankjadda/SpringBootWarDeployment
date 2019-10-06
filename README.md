@@ -20,6 +20,13 @@ INSERT INTO `springdatademo`.`category` (`id`, `description`, `name`) VALUES ('1
    
    ``` 
 
-4.Go to http://localhost:8090/api/v1/category/list to see all categories 
+4.Go to http://localhost:8081/api/v1/category/list to see all categories 
 
-
+## How to pass environment variables to WAR file in Apache Tomcat?
+1. To pass environment variables to WAR file that is being deployed in Tomcat, create file `setenv.sh` under `<Tomcat Home>/bin/` directory and add the following values. 
+    ```
+    export JAVA_OPTS="$JAVA_OPTS -Dspring.profiles.active=dev"
+    export JAVA_OPTS="$JAVA_OPTS -Dmysql_username=root"
+    export JAVA_OPTS="$JAVA_OPTS -Dmysql_password=bcmc1234"
+    ```
+2. Add as many variables as you like and these variables will be available in `application.yml` and `System.getProperty("mysql_username")`

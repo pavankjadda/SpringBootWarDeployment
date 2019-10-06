@@ -25,8 +25,10 @@ spring:
   # Jpa Properties
   datasource:
     url: jdbc:mysql://localhost:3306/springdatademo?serverTimezone=UTC
-    username: root
-    password: bcmc1234
+    username: ${mysql_username}
+    password: ${mysql_password}
+    #username: root
+    #password: bcmc1234
     driver-class-name: com.mysql.cj.jdbc.Driver
 
 
