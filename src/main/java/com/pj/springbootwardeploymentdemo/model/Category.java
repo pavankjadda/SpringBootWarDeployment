@@ -1,4 +1,4 @@
-package com.pj.springdatademo.model;
+package com.pj.springbootwardeploymentdemo.model;
 
 import lombok.Data;
 

@@ -1,4 +1,4 @@
-package com.pj.springdatademo;
+package com.pj.springbootwardeploymentdemo;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.SpringApplication;

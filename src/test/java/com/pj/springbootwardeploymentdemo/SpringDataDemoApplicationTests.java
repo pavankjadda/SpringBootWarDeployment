@@ -1,4 +1,4 @@
-package com.pj.springdatademo;
+package com.pj.springbootwardeploymentdemo;
 
 import org.junit.Test;
 import org.junit.runner.RunWith;

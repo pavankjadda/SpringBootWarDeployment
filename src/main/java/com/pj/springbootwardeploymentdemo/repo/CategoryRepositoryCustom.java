@@ -1,6 +1,6 @@
-package com.pj.springdatademo.repo;
+package com.pj.springbootwardeploymentdemo.repo;
 
-import com.pj.springdatademo.model.Category;
+import com.pj.springbootwardeploymentdemo.model.Category;
 
 import java.util.List;
 

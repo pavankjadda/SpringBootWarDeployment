@@ -1,7 +1,7 @@
-package com.pj.springdatademo.web;
+package com.pj.springbootwardeploymentdemo.web;
 
-import com.pj.springdatademo.model.Category;
-import com.pj.springdatademo.service.CategoryService;
+import com.pj.springbootwardeploymentdemo.model.Category;
+import com.pj.springbootwardeploymentdemo.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;

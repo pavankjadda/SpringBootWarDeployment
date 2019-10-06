@@ -10,7 +10,7 @@
     </parent>
 
     <groupId>com.pj</groupId>
-    <artifactId>springdatademo</artifactId>
+    <artifactId>springbootwardeploymentdemo</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <name>SpringDataDemo</name>
     <description>Demo project for Spring Boot</description>

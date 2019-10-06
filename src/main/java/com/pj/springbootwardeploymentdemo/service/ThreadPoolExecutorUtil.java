@@ -1,4 +1,4 @@
-package com.pj.springdatademo.service;
+package com.pj.springbootwardeploymentdemo.service;
 
 import org.springframework.stereotype.Component;
 
