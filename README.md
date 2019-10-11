@@ -2,9 +2,13 @@
 Spring Boot War Deployment project created to showcase WAR file deployment in Tomcat along with environment variables
 
 ### How to run?
-1. Run the project
-2. Go to http://localhost:8081/api/v1/category/create to create category
-3. Go to http://localhost:8081/api/v1/category/list to see all categories 
+1. Build the project project using 
+```
+mvn clean package -DskipTests
+```
+2. Copy then WAR file from `/target` directory to Tomcat `<TOMCAT_HOME>/webapps/`
+2. Go to http://localhost:8081/springdatademo/api/v1/category/create to create category
+3. Go to http://localhost:8081/springdatademo/api/v1/category/list to see all categories 
 
 ## How to pass environment variables to WAR file in Apache Tomcat?
 1. To pass environment variables to WAR file that is being deployed in Tomcat, create file `setenv.sh` under `<Tomcat Home>/bin/` directory and add the following values. 
