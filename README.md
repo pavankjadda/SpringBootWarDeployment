@@ -20,7 +20,7 @@ INSERT INTO `springdatademo`.`category` (`id`, `description`, `name`) VALUES ('1
    
    ``` 
 
-4.Go to http://localhost:8081/api/v1/category/list to see all categories 
+4.Go to http://localhost:8080/api/v1/category/list to see all categories 
 
 ## How to pass environment variables to WAR file in Apache Tomcat?
 1. To pass environment variables to WAR file that is being deployed in Tomcat, create file `setenv.sh` under `<Tomcat Home>/bin/` directory and add the following values. 
